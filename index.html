@@ -4,17 +4,22 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>YouTube Clone</title>
-  <link rel="stylesheet" href="/styles.css">
+  <link rel="stylesheet" href="/style.css">
 </head>
 <body>
   <h1>YouTube Clone</h1>
-  <form id="upload-form">
-    <label>Title: <input type="text" id="title"></label>
-    <label>Description: <textarea id="description"></textarea></label>
-    <label>Video: <input type="file" id="video"></label>
-    <button type="submit">Upload</button>
-  </form>
-  <div id="videos"></div>
-  <script src="/app.js"></script>
+  <a href="/upload">Upload Video</a>
+  <div class="video-list">
+    <% videos.forEach(video => { %>
+      <div class="video">
+        <h2><%= video.title %></h2>
+        <video width="320" height="240" controls>
+          <source src="<%= video.videoPath %>" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+        <p><%= video.description %></p>
+      </div>
+    <% }) %>
+  </div>
 </body>
 </html>
