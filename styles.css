@@ -1,45 +1,102 @@
+/* General Styles */
 body {
   font-family: Arial, sans-serif;
   line-height: 1.6;
-  margin: 20px;
-}
-
-h1 {
+  margin: 0;
+  padding: 0;
+  background-color: #f9f9f9;
   color: #333;
 }
 
-.video-list {
-  display: flex;
-  flex-wrap: wrap;
+/* Page Header */
+h1 {
+  text-align: center;
+  margin: 20px 0;
+  color: #444;
 }
 
-.video {
-  margin: 10px;
-  border: 1px solid #ccc;
-  padding: 10px;
-}
-
+/* Form Styles */
 form {
-  display: flex;
-  flex-direction: column;
-  max-width: 400px;
+  max-width: 500px;
+  margin: 20px auto;
+  padding: 20px;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 form label {
-  margin-top: 10px;
+  display: block;
+  margin: 10px 0 5px;
+  font-weight: bold;
 }
 
-form input,
-form textarea {
-  padding: 5px;
-  margin-top: 5px;
-}
-
-button {
-  margin-top: 10px;
+form input[type="text"],
+form textarea,
+form input[type="file"] {
+  width: 100%;
   padding: 10px;
-  background-color: #007BFF;
+  margin-bottom: 15px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+form button {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  background: #007BFF;
   color: white;
+  font-size: 16px;
+  font-weight: bold;
   border: none;
+  border-radius: 5px;
   cursor: pointer;
+  transition: background 0.3s;
+}
+
+form button:hover {
+  background: #0056b3;
+}
+
+/* Videos Section */
+h2 {
+  text-align: center;
+  margin: 40px 0 20px;
+  color: #444;
+}
+
+#videos {
+  max-width: 800px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+#videos div {
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 15px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+#videos h3 {
+  font-size: 18px;
+  margin: 0 0 10px;
+  color: #007BFF;
+}
+
+#videos video {
+  width: 100%;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+#videos p {
+  margin: 0;
+  font-size: 14px;
+  color: #666;
 }
