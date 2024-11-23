@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>YouBlox</title>
+  <title>Free YouTube Clone</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <h1>YouBlox</h1>
+  <h1>YouTube Clone (Free Version)</h1>
   <form id="upload-form">
     <label for="title">Title:</label>
     <input type="text" id="title" required>
@@ -15,8 +15,8 @@
     <label for="description">Description:</label>
     <textarea id="description" required></textarea>
     
-    <label for="video">Upload Video:</label>
-    <input type="file" id="video" accept="video/*" required>
+    <label for="video">Upload Video (Max 5MB):</label>
+    <input type="file" id="video" accept="video/mp4" required>
     
     <button type="submit">Upload</button>
   </form>
@@ -26,6 +26,74 @@
   <h2>Uploaded Videos</h2>
   <div id="videos"></div>
 
-  <script src="app.js"></script>
+  <script>
+    const uploadForm = document.getElementById('upload-form');
+    const videosContainer = document.getElementById('videos');
+
+    // Upload video
+    uploadForm.addEventListener('submit', async (event) => {
+      event.preventDefault();
+
+      const title = document.getElementById('title').value;
+      const description = document.getElementById('description').value;
+      const video = document.getElementById('video').files[0];
+
+      if (!video || video.size > 5 * 1024 * 1024) {
+        alert('Please select a video smaller than 5MB.');
+        return;
+      }
+
+      const formData = new FormData();
+      formData.append('title', title);
+      formData.append('description', description);
+      formData.append('video', video);
+
+      try {
+        const response = await fetch('/api/upload', {
+          method: 'POST',
+          body: formData,
+        });
+
+        if (response.ok) {
+          alert('Video uploaded successfully!');
+          fetchVideos(); // Refresh the video list
+        } else {
+          alert('Failed to upload the video.');
+        }
+      } catch (error) {
+        console.error('Error:', error);
+        alert('An error occurred.');
+      }
+    });
+
+    // Fetch and display videos
+    async function fetchVideos() {
+      try {
+        const response = await fetch('/api/videos');
+        const videos = await response.json();
+
+        videosContainer.innerHTML = ''; // Clear previous content
+
+        videos.forEach((video) => {
+          const videoElement = document.createElement('div');
+          videoElement.innerHTML = `
+            <h3>${video.title}</h3>
+            <video controls width="300">
+              <source src="${video.url}" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+            <p>${video.description}</p>
+          `;
+          videosContainer.appendChild(videoElement);
+        });
+      } catch (error) {
+        console.error('Error fetching videos:', error);
+        videosContainer.innerHTML = '<p>Failed to load videos.</p>';
+      }
+    }
+
+    // Fetch videos on page load
+    fetchVideos();
+  </script>
 </body>
 </html>
